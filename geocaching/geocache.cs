@@ -11,11 +11,10 @@ namespace geocaching
         private readonly string _bemerkung;
         private readonly DefaultSettings _currentSettings;
         private readonly bool _directory; // Wenn True Ordner erstellen sonst nur File
-        private string _fileDirectoryName;
         private readonly string _gcCode;
-        private DateTime _gefunden;
         private readonly string _name;
-
+        private string _fileDirectoryName;
+        private DateTime _gefunden;
 
         //Geocache Objekt erstellen
         public Geocache(bool paramDirectory, string paramName, string paramBemerkung, string paramGcCode,
@@ -32,8 +31,7 @@ namespace geocaching
             CreateFileDirectoryName();
         }
 
-
-        public bool GeocacheAusgabe()
+        public bool GeocacheAusgabe(bool paramOpenNotepad)
         {
             //Ausgabe Part
             var path = _currentSettings.GetCurrentDirectory();
@@ -102,19 +100,22 @@ namespace geocaching
                 return false;
             }
 
+            if (!paramOpenNotepad) return true;
             //Open Notepad++
-            //Process.Start("C:\Program Files (x86)\Notepad++\notepad++.exe" "path");
-            var process = new Process();
-            process.StartInfo.FileName = "notepad++.exe";
-            process.StartInfo.WorkingDirectory = "c:\temp";
-            process.StartInfo.Arguments = path;
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = "notepad++.exe",
+                    WorkingDirectory = "c:\temp",
+                    Arguments = path
+                }
+            };
             process.Start();
-
 
             //return true wenn erfolgreich gespeichert:
             return true;
         }
-
 
         private void CreateFileDirectoryName()
         {

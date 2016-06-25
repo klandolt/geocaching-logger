@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 
-[assembly: AssemblyTitle("geocaching")]
+[assembly: AssemblyTitle("geocaching-logger")]
 [assembly: AssemblyDescription("Geocache Logger")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("klandolt")]

@@ -9,12 +9,17 @@ namespace geocaching
 
         public string CurrentDirectory;
 
+        /// <summary>
+        ///     True: Open Notepad++
+        ///     False: Not open Notepad++
+        /// </summary>
+        public bool OpenNotepad;
 
         public DefaultSettings()
         {
             //leeren Konstruktor
+            OpenNotepad = true;
         }
-
 
         public DefaultSettings(string paramPfad)
         {
@@ -26,18 +31,23 @@ namespace geocaching
             CurrentDirectory = paramPfad;
         }
 
-
         public string GetCurrentDirectory()
         {
             return CurrentDirectory;
         }
 
+        public void SetOpenNotepad(bool paramOpenNotepad)
+        {
+            OpenNotepad = paramOpenNotepad;
+        }
+
+        public bool GetOpenNotepad()
+        {
+            return OpenNotepad;
+        }
 
         public bool SaveObject()
         {
-            //labelpfad.Text = reader.ReadLine();
-            //df.SetCurrentDirectory(labelpfad.Text);
-
             var mySerializer = new XmlSerializer(typeof(DefaultSettings));
 
             var myWriter = new StreamWriter(GetFileNamen());
