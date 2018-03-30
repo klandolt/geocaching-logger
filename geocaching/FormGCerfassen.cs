@@ -47,14 +47,16 @@ namespace geocaching
 
                 //Setting OpenNotepad anpassen:
                 checkBoxOpenNotepad.Checked = _df.OpenNotepad;
+                checkBoxOpenExplorer.Checked = _df.OpenExplorer;
 
                 SetToolStatusLabel("Einstellung gespeichert!");
             }
             else
             {
-                //Config FIle existiert nicht
+                //Config File existiert nicht
                 tab1Labelpfad.Text = @"Einstellungen => Verzeichnis wählen";
                 tab2Labelpfad.Text = @"Verzeichnis wählen";
+                SetToolStatusLabel(@"Verzeichnis wählen!");
             }
         }
 
@@ -72,29 +74,16 @@ namespace geocaching
             {
                 var pfad = folderBrowserDialog1.SelectedPath;
 
-
-                WritePathSettings(pfad);
-
+                _df.SetCurrentDirectory(pfad);
+                tab1Labelpfad.Text = pfad;
+                tab2Labelpfad.Text = pfad;
 
                 buttonSave.Enabled = true;
+                _df.SaveObject(this);
             }
         }
 
-        private void WritePathSettings(string paramPathtxt)
-        {
-            tab1Labelpfad.Text = paramPathtxt;
-            tab2Labelpfad.Text = paramPathtxt;
-            _df.SetCurrentDirectory(paramPathtxt);
-
-            //Speicherb in File:
-
-            if (_df.SaveObject())
-            {
-                //Speichern erfolgreich
-                SetToolStatusLabel("Einstellung gespeichert! Pfad: " + paramPathtxt);
-            }
-        }
-
+       
         private void buttonReset_Click(object sender, EventArgs e)
         {
             ResetForms();
@@ -115,7 +104,7 @@ namespace geocaching
             //Geocache speichern
             var gc = new Geocache(radioButtonDirectory.Checked, textBoxName.Text, textBoxBemerkung.Text,
                 textBoxGCCode.Text, dateTimePickerGefunden.Value, _df);
-            if (gc.GeocacheAusgabe(_df.OpenNotepad))
+            if (gc.GeocacheAusgabe(_df.OpenNotepad, _df.OpenExplorer))
             {
                 //Cache ausgabe erfolgreich
                 SetToolStatusLabel("Geocache gespeichert!");
@@ -141,23 +130,14 @@ Version: " + Assembly.GetEntryAssembly().GetName().Version + @"
 Kevin Landolt geocache@klandolt.ch", @"Infos", MessageBoxButtons.OK);
         }
 
-        private void checkBoxOpenNotepad_CheckedChanged(object sender, EventArgs e)
-        {
-            //Change CheckBoxOpenNotepad++
-            _df.SetOpenNotepad(checkBoxOpenNotepad.Checked);
-
-            //Speicherb in File:
-
-            if (_df.SaveObject())
-            {
-                //Speichern erfolgreich
-                SetToolStatusLabel("Einstellung gespeichert!");
-            }
-        }
-
-        private void SetToolStatusLabel(string paramString)
+        public void SetToolStatusLabel(string paramString)
         {
             toolStripStatusLabel.Text = paramString + @" " + DateTime.Now.ToString("dd.mm.yyyy HH:mm:ss.FFF");
+        }
+
+        private void buttonSaveSetting_Click(object sender, EventArgs e)
+        {
+            _df.SaveObject(this);
         }
     }
 }

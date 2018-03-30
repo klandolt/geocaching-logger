@@ -6,7 +6,7 @@ namespace geocaching
     internal static class Program
     {
         /// <summary>
-        ///     Der Haupteinstiegspunkt für die Anwendung.
+        ///     Entry Point for Start Programm
         /// </summary>
         [STAThread]
         private static void Main()

@@ -50,6 +50,8 @@
             this.tab1Labelpfad = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonSaveSetting = new System.Windows.Forms.Button();
+            this.checkBoxOpenExplorer = new System.Windows.Forms.CheckBox();
             this.checkBoxOpenNotepad = new System.Windows.Forms.CheckBox();
             this.tab2Labelpfad = new System.Windows.Forms.Label();
             this.buttonChooseDirectory = new System.Windows.Forms.Button();
@@ -264,6 +266,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonSaveSetting);
+            this.tabPage2.Controls.Add(this.checkBoxOpenExplorer);
             this.tabPage2.Controls.Add(this.checkBoxOpenNotepad);
             this.tabPage2.Controls.Add(this.tab2Labelpfad);
             this.tabPage2.Controls.Add(this.buttonChooseDirectory);
@@ -275,18 +279,35 @@
             this.tabPage2.Text = "Einstellungen";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // buttonSaveSetting
+            // 
+            this.buttonSaveSetting.Location = new System.Drawing.Point(410, 292);
+            this.buttonSaveSetting.Name = "buttonSaveSetting";
+            this.buttonSaveSetting.Size = new System.Drawing.Size(235, 23);
+            this.buttonSaveSetting.TabIndex = 21;
+            this.buttonSaveSetting.Text = "Save Settings";
+            this.buttonSaveSetting.UseVisualStyleBackColor = true;
+            this.buttonSaveSetting.Click += new System.EventHandler(this.buttonSaveSetting_Click);
+            // 
+            // checkBoxOpenExplorer
+            // 
+            this.checkBoxOpenExplorer.AutoSize = true;
+            this.checkBoxOpenExplorer.Location = new System.Drawing.Point(62, 125);
+            this.checkBoxOpenExplorer.Name = "checkBoxOpenExplorer";
+            this.checkBoxOpenExplorer.Size = new System.Drawing.Size(93, 17);
+            this.checkBoxOpenExplorer.TabIndex = 20;
+            this.checkBoxOpenExplorer.Text = "Open Explorer";
+            this.checkBoxOpenExplorer.UseVisualStyleBackColor = true;
+            // 
             // checkBoxOpenNotepad
             // 
             this.checkBoxOpenNotepad.AutoSize = true;
-            this.checkBoxOpenNotepad.Checked = true;
-            this.checkBoxOpenNotepad.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxOpenNotepad.Location = new System.Drawing.Point(62, 101);
             this.checkBoxOpenNotepad.Name = "checkBoxOpenNotepad";
             this.checkBoxOpenNotepad.Size = new System.Drawing.Size(108, 17);
             this.checkBoxOpenNotepad.TabIndex = 19;
             this.checkBoxOpenNotepad.Text = "Open Notepad++";
             this.checkBoxOpenNotepad.UseVisualStyleBackColor = true;
-            this.checkBoxOpenNotepad.CheckedChanged += new System.EventHandler(this.checkBoxOpenNotepad_CheckedChanged);
             // 
             // tab2Labelpfad
             // 
@@ -352,7 +373,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        public System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -376,9 +397,11 @@
         private System.Windows.Forms.RadioButton radioButtonDirectory;
         private System.Windows.Forms.RadioButton radioButtonFile;
         private System.Windows.Forms.GroupBox groupBoxDirectoryOrFile;
-        private System.Windows.Forms.CheckBox checkBoxOpenNotepad;
+        public System.Windows.Forms.CheckBox checkBoxOpenNotepad;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        public System.Windows.Forms.CheckBox checkBoxOpenExplorer;
+        private System.Windows.Forms.Button buttonSaveSetting;
     }
 }
 

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace geocaching
 {
-    internal class Geocache
+    internal sealed class Geocache
     {
         private readonly string _bemerkung;
         private readonly DefaultSettings _currentSettings;
@@ -31,12 +31,12 @@ namespace geocaching
             CreateFileDirectoryName();
         }
 
-        public bool GeocacheAusgabe(bool paramOpenNotepad)
+        public bool GeocacheAusgabe(bool paramOpenNotepad, bool paramOpenExplorer)
         {
-            //Ausgabe Part
+            //get current output directory
             var path = _currentSettings.GetCurrentDirectory();
 
-            //Wenn Verzeichnis true erstellen und Pfad anpassen
+            //if create directory true
             if (_directory)
             {
                 //Path ergänzen um Geocachename
@@ -47,7 +47,7 @@ namespace geocaching
                     // Determine whether the directory exists. 
                     if (Directory.Exists(path))
                     {
-                        //Abbruch wenn Verzeichnis bereits existiert
+                        //Stopp directory already exist
                         MessageBox.Show(@"Fehler Verzeichnis existiert bereits!!!", @"Fehler!!", MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return false;
@@ -65,7 +65,7 @@ namespace geocaching
                 }
             }
 
-            //Pfad ergänzen um Filenamen:
+            //add path with Filename
             path += "\\" + _fileDirectoryName + ".txt";
 
             //Output 
@@ -85,7 +85,7 @@ namespace geocaching
                 }
                 catch (Exception e)
                 {
-                    //File schreiben war nicht erfolgreich
+                    //File writter Fail
                     MessageBox.Show(@"Fehler beim File Schreiben!!! " + e, @"Fehler!!", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
 
@@ -94,24 +94,38 @@ namespace geocaching
             }
             else
             {
-                //Wenn File bereits existiert
+                //File already Exist
                 MessageBox.Show(@"Fehler File existiert bereits!!! ", @"Fehler!!", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return false;
             }
 
-            if (!paramOpenNotepad) return true;
-            //Open Notepad++
-            var process = new Process
+            if(paramOpenNotepad)
             {
-                StartInfo =
+                //open Notepad++
+                var process = new Process
+                {
+                    StartInfo =
                 {
                     FileName = "notepad++.exe",
-                    WorkingDirectory = "c:\temp",
+                    WorkingDirectory = @"c:\temp",
                     Arguments = path
                 }
-            };
-            process.Start();
+                };
+                process.Start();
+            }
+
+
+            if (paramOpenExplorer)
+            {
+                //open FileExplorer
+                var getDirectory = Path.GetDirectoryName(path);
+                if (!string.IsNullOrEmpty(getDirectory))
+                {
+                    Process.Start(getDirectory);
+                }
+            }
+            
 
             //return true wenn erfolgreich gespeichert:
             return true;
