@@ -72,7 +72,7 @@ namespace geocaching
             if (!File.Exists(path))
             {
                 // Create a file to write to.
-                var text = "Erstellt am " + DateTime.Now.ToString("dd.MM.yyyy") + " - " + DateTime.Now.ToString("mm:HH") +
+                var text = "Erstellt am " + DateTime.Now.ToString("dd.MM.yyyy") + " - " + DateTime.Now.ToString("HH:mm") +
                            " Uhr" + Environment.NewLine;
                 text += _name + " - " + _gcCode + Environment.NewLine;
                 text += "_______________________________________________________________" + Environment.NewLine;

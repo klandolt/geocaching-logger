@@ -25,7 +25,6 @@ namespace geocaching
         public DefaultSettings()
         {
             //leeren Konstruktor
-            SetCurrentDirectory(Path.GetTempPath());
             OpenNotepad = false;
             OpenExplorer = false;
         }

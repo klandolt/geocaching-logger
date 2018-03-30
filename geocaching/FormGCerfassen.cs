@@ -38,16 +38,26 @@ namespace geocaching
                 //Filestream schliessen
                 myFileStream.Close();
 
+                var currentDirectory = _df.GetCurrentDirectory();
+                if (string.IsNullOrEmpty(currentDirectory))
+                {
+                    tab1Labelpfad.Text = @"Einstellungen => Verzeichnis wählen";
+                    tab2Labelpfad.Text = @"Verzeichnis wählen";
+                    SetToolStatusLabel(@"Verzeichnis wählen!");
+                    return;
+                }
+
                 //Label setzten
-                tab1Labelpfad.Text = _df.GetCurrentDirectory();
-                tab2Labelpfad.Text = _df.GetCurrentDirectory();
+                tab1Labelpfad.Text = currentDirectory;
+                tab2Labelpfad.Text = currentDirectory;
+
+                //Setting OpenNotepad anpassen:
+                folderBrowserDialog1.SelectedPath = currentDirectory;
+                checkBoxOpenNotepad.Checked = _df.OpenNotepad;
+                checkBoxOpenExplorer.Checked = _df.OpenExplorer;
 
                 //Save Button aktivieren
                 buttonSave.Enabled = true;
-
-                //Setting OpenNotepad anpassen:
-                checkBoxOpenNotepad.Checked = _df.OpenNotepad;
-                checkBoxOpenExplorer.Checked = _df.OpenExplorer;
 
                 SetToolStatusLabel("Einstellung gespeichert!");
             }
